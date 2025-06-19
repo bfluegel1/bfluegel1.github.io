@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Hire Me – Bastian Flügel</title>
+  <style>
+    /* Reset & Base */
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      background: #f5f5f5;
+      color: #1a1a1a;
+      line-height:1.6;
+      min-height:100vh;
+      padding-top:80px;
+      text-align:center;
+    }
+    a { text-decoration:none; color:inherit; }
+
+    /* Sticky Header */
+    .header {
+      position: fixed;
+      top:0; left:0; right:0;
+      height:60px;
+      backdrop-filter: blur(10px);
+      background: rgba(255,255,255,0.5);
+      display:flex;
+      align-items:center;
+      justify-content: space-between;
+      padding: 0 1rem;
+      z-index:100;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    .header .logo {
+      display:flex;
+      align-items:center;
+    }
+    .header .logo img {
+      height: 40px;
+      margin-right: .5rem;
+    }
+    .header h1 {
+      font-size:1.25rem;
+      color:#0f9d58;
+    }
+
+    /* Stiltreuer Pill-Toggle */
+    .toggle {
+      position: relative;
+      display: inline-flex;
+      background: #e0f4e9;
+      border-radius: 30px;
+      padding: 4px;
+    }
+    .toggle button {
+      flex: 1;
+      background: transparent;
+      border: none;
+      padding: 6px 12px;
+      font-size: .9rem;
+      cursor: pointer;
+      border-radius: 30px;
+      position: relative;
+      z-index: 1;
+      transition: color .3s;
+    }
+    .toggle .pill {
+      position: absolute;
+      top: 4px; bottom: 4px;
+      width: 50%;
+      background: #0f9d58;
+      border-radius: 30px;
+      transition: left .3s;
+    }
+    .toggle button.active {
+      color: #fff;
+    }
+    #btn-ger.active ~ .pill { left: 4px; }
+    #btn-eng.active ~ .pill { left: calc(50% + 4px); }
+
+    /* Wrapper */
+    .wrapper {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 1rem;
+    }
+
+    /* Section Titles */
+    section {
+      margin-bottom:2rem;
+    }
+    section h2 {
+      font-size:1.4rem;
+      color:#0f9d58;
+      text-align:center;
+      margin-bottom:.75rem;
+      position: relative;
+    }
+    section h2::after {
+      content:""; display:block;
+      width:40px; height:3px;
+      background:#a6e6b9;
+      margin:8px auto 0;
+      border-radius:2px;
+    }
+
+    /* Card / Frosted Glass */
+    .card {
+      background: rgba(255,255,255,0.6);
+      backdrop-filter: blur(12px);
+      border-radius:12px;
+      padding:1.5rem;
+      box-shadow:0 4px 16px rgba(0,0,0,0.08);
+    }
+
+    /* Skills Grid */
+    .skills {
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+      gap:1rem;
+    }
+    .skills div {
+      background: rgba(46,204,113,0.1);
+      color:#0f9d58;
+      padding:.75rem;
+      border-radius:6px;
+      text-align:center;
+      font-size:.95rem;
+    }
+
+    /* Trust Badges */
+    .trust {
+      display:flex;
+      justify-content:space-around;
+      align-items:center;
+      flex-wrap:wrap;
+      gap:1rem;
+    }
+    .trust .badge {
+      background: rgba(255,255,255,0.8);
+      border-radius:8px;
+      padding:1rem;
+      width:96px;
+      text-align:center;
+      box-shadow:0 2px 6px rgba(0,0,0,0.1);
+    }
+    .trust .badge img {
+      width:40px; height:40px; margin-bottom:.5rem;
+    }
+    .trust .badge span {
+      display:block;
+      font-size:.85rem;
+      color:#1a1a1a;
+    }
+
+    /* Booking Form */
+    .booking form {
+      display:grid;
+      gap:1rem;
+    }
+    .booking label {
+      display:flex; flex-direction:column;
+      font-size:.9rem;
+      color:#333;
+    }
+    .booking input,
+    .booking textarea {
+      margin-top:.5rem;
+      padding:.75rem;
+      border:1px solid #ccc;
+      border-radius:6px;
+      font-size:.95rem;
+      font-family:inherit;
+    }
+    .booking button {
+      margin-top:1rem;
+      background:#0f9d58;
+      color:#fff;
+      border:none;
+      border-radius:50px;
+      padding:.75rem 2rem;
+      font-size:1rem;
+      cursor:pointer;
+      transition:opacity .3s;
+      justify-self:center;
+    }
+    .booking button:hover {
+      opacity:.8;
+    }
+
+    /* Footer */
+    footer {
+      text-align:center;
+      font-size:.85rem;
+      color:#666;
+      padding:2rem 0 1rem;
+    }
+
+    /* Language Visibility */
+    .lang { display:none; }
+    .lang.active { display:block; }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="logo">
+      <img src="https://bfluegel.de/logo.svg" alt="B. Flügel Logo">
+      <h1>B. Flügel</h1>
+    </div>
+    <div class="toggle">
+      <button id="btn-ger" class="active">GER</button>
+      <button id="btn-eng">ENG</button>
+      <div class="pill"></div>
+    </div>
+  </div>
+
+  <div class="wrapper">
+
+    <!-- Deutsch -->
+    <div id="ger" class="lang active">
+      <section id="about">
+        <h2>Profil</h2>
+        <div class="card">
+          <p>Du möchtest eine Web-App, die einfach funktioniert – auch offline? Ich bin Bastian, dein Entwicklerfreund. Seit Jahren bauen wir performante PWAs, die stabil, schnell und nutzerfreundlich sind.</p>
+        </div>
+      </section>
+
+      <section id="skills">
+        <h2>PWA-Qualität</h2>
+        <div class="card skills">
+          <div>Offline-First</div>
+          <div>Service Workers</div>
+          <div>High Performance</div>
+          <div>Mobile-Optimiert</div>
+          <div>Barrierefreiheit</div>
+          <div>Progressive Enhancement</div>
+          <div>Sichere Architektur</div>
+        </div>
+      </section>
+
+      <section id="trust">
+        <h2>Trust</h2>
+        <div class="card trust">
+          <div class="badge">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React">
+            <span>React-Profi</span>
+          </div>
+          <div class="badge">
+            <img src="https://img.icons8.com/ios-filled/50/000000/privacy.png" alt="DSGVO">
+            <span>DSGVO-fit</span>
+          </div>
+          <div class="badge">
+            <a href="https://www.w3.org/WAI/WCAG2AAA-Conformance" title="WCAG 2 AAA">
+              <img height="32" width="88" src="https://www.w3.org/WAI/wcag2AAA" alt="WCAG AAA">
+            </a>
+            <span>WCAG AAA</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="booking">
+        <h2>Auftragsanfrage</h2>
+        <div class="card">
+          <form onsubmit="sendInquiry(event)">
+            <label>Dein Name
+              <input type="text" name="name" required>
+            </label>
+            <label>Deine E-Mail
+              <input type="email" name="email" required>
+            </label>
+            <label>Worum geht’s?
+              <textarea name="message" rows="4" required></textarea>
+            </label>
+            <button type="submit">Los geht’s!</button>
+          </form>
+        </div>
+      </section>
+    </div>
+
+    <!-- English -->
+    <div id="eng" class="lang">
+      <section id="about">
+        <h2>Profile</h2>
+        <div class="card">
+          <p>Need a web app that just works—even offline? I’m Bastian, your dev buddy. Together, we’ve built performant PWAs for years: stable, fast and user-friendly.</p>
+        </div>
+      </section>
+
+      <section id="skills">
+        <h2>PWA Quality</h2>
+        <div class="card skills">
+          <div>Offline-First</div>
+          <div>Service Workers</div>
+          <div>High Performance</div>
+          <div>Mobile-Optimized</div>
+          <div>Accessibility</div>
+          <div>Progressive Enhancement</div>
+          <div>Secure Architecture</div>
+        </div>
+      </section>
+
+      <section id="trust">
+        <h2>Trust</h2>
+        <div class="card trust">
+          <div class="badge">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React">
+            <span>React Expert</span>
+          </div>
+          <div class="badge">
+            <img src="https://img.icons8.com/ios-filled/50/000000/privacy.png" alt="GDPR">
+            <span>GDPR-Compliant</span>
+          </div>
+          <div class="badge">
+            <a href="https://www.w3.org/WAI/WCAG2AAA-Conformance" title="WCAG 2 AAA">
+              <img height="32" width="88" src="https://www.w3.org/WAI/wcag2AAA" alt="WCAG AAA">
+            </a>
+            <span>WCAG AAA</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="booking">
+        <h2>Book a Project</h2>
+        <div class="card">
+          <form onsubmit="sendInquiry(event)">
+            <label>Your Name
+              <input type="text" name="name" required>
+            </label>
+            <label>Your Email
+              <input type="email" name="email" required>
+            </label>
+            <label>Project Details
+              <textarea name="message" rows="4" required></textarea>
+            </label>
+            <button type="submit">Let’s go!</button>
+          </form>
+        </div>
+      </section>
+    </div>
+
+    <footer>
+      © 2025 bfluegel.de – Alle Rechte vorbehalten<br>
+      <a href="https://bfluegel.de" target="_blank">bfluegel.de</a> · bastian.fluegel@mail.de
+    </footer>
+
+  </div>
+
+  <script>
+    // Language toggle
+    document.getElementById('btn-ger').onclick = () => {
+      document.getElementById('ger').classList.add('active');
+      document.getElementById('eng').classList.remove('active');
+      document.getElementById('btn-ger').classList.add('active');
+      document.getElementById('btn-eng').classList.remove('active');
+    };
+    document.getElementById('btn-eng').onclick = () => {
+      document.getElementById('eng').classList.add('active');
+      document.getElementById('ger').classList.remove('active');
+      document.getElementById('btn-eng').classList.add('active');
+      document.getElementById('btn-ger').classList.remove('active');
+    };
+    // Mailto form
+    function sendInquiry(e) {
+      e.preventDefault();
+      const f = e.target;
+      const subject = encodeURIComponent("Project Request from " + f.name.value);
+      const body = encodeURIComponent(
+        "Name: " + f.name.value + "\n" +
+        "Email: " + f.email.value + "\n\n" +
+        "Project Details:\n" + f.message.value
+      );
+      window.location.href = `mailto:bastian.fluegel@mail.de?subject=${subject}&body=${body}`;
+    }
+  </script>
+</body>
+</html>
